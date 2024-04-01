@@ -130,7 +130,7 @@ async def on_message(message: discord.Message):
         async with message.channel.typing():
             # Luna recieves messages in simple JSON
             ai_user_message = json.dumps({
-                "user": message.author.name,
+                "user": message.author.display_name,
                 "id": message.author.id,
                 "message": message.content
             })
