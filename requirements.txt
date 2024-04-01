@@ -1,0 +1,5 @@
+discord.py
+emoji
+openai==0.28.1
+rtoml
+tiktoken
