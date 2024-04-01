@@ -191,9 +191,10 @@ async def command_clear_cache(channel: discord.TextChannel):
 async def send_response(responding_to: discord.Message, response: str):
     cleaned_response = response.strip()
     if emoji.is_emoji(cleaned_response):
-        responding_to.add_reaction(cleaned_response)
+        await responding_to.add_reaction(cleaned_response)
     else:
-        responding_to.channel.send(response, allowed_mentions=discord.AllowedMentions(users=True, roles=True))
+        # await responding_to.channel.send(response, allowed_mentions=discord.AllowedMentions(users=True, roles=True))
+        await responding_to.reply(response, mention_author=False, allowed_mentions=discord.AllowedMentions(users=True, roles=True))
 
 def parse_duration(duration: str) -> timedelta:
     match duration[-1]:
