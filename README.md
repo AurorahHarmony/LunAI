@@ -21,3 +21,12 @@ Follow development on Luna in our Discord server: https://discord.gg/b9hRknVe5w
 
 - Ability to look up previous messages in the conversation for additional context
 - Ability to decide if Luna should insert herself into the conversation or not
+
+# Environment
+
+The following Environment Variables must be set.
+
+```
+OPENAI_AP
+DISCORD_BOT_TOKEN
+```
