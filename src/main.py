@@ -107,6 +107,13 @@ async def on_ready():
 async def on_message(message: discord.Message):
     correlation_id = uuid.uuid4()
     timing_message_start = time.perf_counter_ns() # Timing the message handler
+
+    # Wait one second and check if message is deleted before continuing
+    await asyncio.sleep(1.5)
+    if not message.channel.get_partial_message(message.id):
+        app_logger.info(f"[{correlation_id}] Message {message.id} was deleted before processing.")
+        return
+    
     try:
         # Checking the message for commands, if it's a self messages, etc
         if message.author == client.user:
