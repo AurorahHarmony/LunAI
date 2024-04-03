@@ -205,7 +205,16 @@ async def send_response(responding_to: discord.Message, response: str):
         await responding_to.add_reaction(cleaned_response)
     else:
         # await responding_to.channel.send(response, allowed_mentions=discord.AllowedMentions(users=True, roles=True))
-        await responding_to.reply(response, mention_author=False, allowed_mentions=discord.AllowedMentions(users=True, roles=True))
+        chunk_size = 1900  # slightly less than 2000 to account for any additional characters in a reply
+        chunks = chunk_message(response, chunk_size)
+
+        reference_message = responding_to
+        for chunk in chunks:
+            sent_message = await reference_message.reply(chunk, mention_author=False, allowed_mentions=discord.AllowedMentions(users=True, roles=True))
+            reference_message = sent_message
+
+def chunk_message(message: str, chunk_size: int):
+    return [message[i:i+chunk_size] for i in range(0, len(message), chunk_size)]
 
 def parse_duration(duration: str) -> timedelta:
     match duration[-1]:
